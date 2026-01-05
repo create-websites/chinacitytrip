@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>China: Cultural &amp; Thematic Schematic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans:wght@300;400;600&display=swap');
+
+        /* Custom Palette Definition */
+        :root {
+            --paper-bg: #fdfbf7;      /* Rice Paper */
+            --ink-black: #2c2c2c;     /* Ink */
+            --cinnabar: #a83f39;      /* Seal Red */
+            --jade: #5c7a6c;          /* Jade Green */
+            --gold: #c5a059;          /* Imperial Gold */
+            --wash: #e6e2d8;          /* Stone Wash */
+        }
+
+        body {
+            background-color: var(--paper-bg);
+            color: var(--ink-black);
+            font-family: 'Noto Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .serif {
+            font-family: 'Noto Serif SC', serif;
+        }
+
+        /* Chart Container Styles - MANDATORY */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px; /* Base height */
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        /* Custom UI Elements */
+        .btn-seal {
+            border: 1px solid var(--cinnabar);
+            color: var(--cinnabar);
+            transition: all 0.3s ease;
+        }
+        .btn-seal:hover, .btn-seal.active {
+            background-color: var(--cinnabar);
+            color: white;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .tab-active {
+            border-bottom: 3px solid var(--cinnabar);
+            color: var(--ink-black);
+            font-weight: 700;
+        }
+        
+        .tab-inactive {
+            color: #888;
+            border-bottom: 3px solid transparent;
+        }
+        .tab-inactive:hover {
+            color: var(--cinnabar);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Decoration */
+        .ink-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--ink-black), transparent);
+            opacity: 0.2;
+            margin: 2rem 0;
+        }
+    </style>
+    <!-- Chosen Palette: "Rice Paper & Ink" (Warm Neutral Background #fdfbf7, Ink Black #2c2c2c, Cinnabar Red #a83f39, Jade Green #5c7a6c, Imperial Gold #c5a059). Designed for calm harmony and cultural resonance. -->
+    
+    <!-- Application Structure Plan: 
+         The SPA is designed as a vertical "scroll" mimicking a traditional unfolding painting, but sectioned into logical thematic "Schematics".
+         1. Header: Minimalist "Seal" aesthetic.
+         2. Intro: Contextualizing the "Middle Kingdom".
+         3. Temporal Schematic (Dynasties): Interactive Bar Chart to visualize the cyclical nature of power and duration.
+         4. Philosophical Schematic (Three Teachings): Tabbed interaction to allow focused comparison of Confucianism, Taoism, and Buddhism without clutter.
+         5. Sensory Schematic (Tea): Radar chart to compare flavor profiles, engaging the user in the "art of living".
+         6. Cultural Schematic (Festivals & Medicine): Interactive lists/cards to organize complex traditions.
+         7. Physical Schematic (Arts): Comparison bars for Martial Arts and a step-process for Calligraphy.
+         Rationale: This structure moves from abstract history/thought to concrete lifestyle/practice, aiding beginner understanding.
+    -->
+
+    <!-- Visualization & Content Choices:
+         - Dynasty Duration: Bar Chart (Chart.js). Goal: Compare. Shows the longevity of major eras. Interaction: Click to see details.
+         - Tea Profiles: Radar Chart (Chart.js). Goal: Compare/Relationships. Visualizes abstract flavor notes. Interaction: Toggle tea types.
+         - Martial Arts: HTML/CSS Progress Bars. Goal: Compare. Contrast Internal vs. External styles.
+         - Philosophy: HTML/JS Tabs. Goal: Organize. Breaks down complex thoughts into digestible cards.
+         - Festivals: HTML/JS Accordion. Goal: Inform. Hides details until requested.
+         - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="bg-[#fdfbf7]">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-[#fdfbf7]/95 backdrop-blur-sm border-b border-[#e6e2d8] py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-[#a83f39] rounded text-white flex items-center justify-center font-bold serif">中</div>
+                <span class="text-xl font-bold tracking-wide serif text-[#2c2c2c]">CULTURE<span class="text-[#a83f39]">.CN</span></span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-medium tracking-widest uppercase text-[#555]">
+                <a class="hover:text-[#a83f39] transition-colors" href="#history">History</a>
+                <a class="hover:text-[#a83f39] transition-colors" href="#philosophy">Philosophy</a>
+                <a class="hover:text-[#a83f39] transition-colors" href="#lifestyle">Lifestyle</a>
+                <a class="hover:text-[#a83f39] transition-colors" href="#arts">Arts</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="pt-20 pb-16 px-4 sm:px-6 lg:px-8 text-center max-w-5xl mx-auto">
+        <div class="inline-block px-4 py-1 mb-6 text-xs font-bold tracking-[0.2em] text-[#a83f39] border border-[#a83f39] rounded-full uppercase bg-white">
+            Schematic Category: Cultural Systems
+        </div>
+        <h1 class="text-5xl md:text-7xl mb-6 text-[#2c2c2c] leading-tight">
+            Structure &amp; Spirit of<br/>the <span class="text-[#a83f39] italic serif">Middle Kingdom</span>
+        </h1>
+        <p class="text-xl text-gray-600 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+            An interactive schematic exploring the dynastic cycles, philosophical pillars, and structured aesthetics that define 5,000 years of Chinese civilization.
+        </p>
+        <div class="flex justify-center gap-4">
+            <a class="px-8 py-3 bg-[#2c2c2c] text-white rounded hover:bg-[#a83f39] transition duration-300 shadow-lg font-medium" href="#history">Begin Exploration</a>
+        </div>
+    </header>
+
+    <div class="ink-line max-w-4xl mx-auto"></div>
+
+    <!-- Section 1: History (Dynasties) -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" id="history">
+        <div class="mb-12 text-center">
+            <h2 class="text-3xl font-bold mb-4 serif text-[#2c2c2c]">The Dynastic Cycle</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">
+                Chinese history is viewed as cyclical, driven by the "Mandate of Heaven". Dynasties rise through unity and fall through corruption. Use the chart below to compare the longevity of the major imperial eras.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 items-start">
+            <!-- Chart Controls/Info -->
+            <div class="md:col-span-1 bg-white p-6 rounded-lg card-shadow border-t-4 border-[#c5a059]">
+                <h3 class="text-lg font-bold mb-2 serif text-[#c5a059]">Era Details</h3>
+                <div class="text-sm text-gray-600" id="dynasty-info">
+                    <p class="mb-4 italic">Select a bar in the chart to view specific dynasty details.</p>
+                    <div class="p-4 bg-gray-50 rounded border border-gray-100">
+                        <strong class="block text-[#2c2c2c] text-lg mb-1" id="d-name">--</strong>
+                        <span class="block text-xs text-[#a83f39] font-bold uppercase mb-2" id="d-years">--</span>
+                        <p id="d-desc">Interaction Required.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart Area -->
+            <div class="md:col-span-2 flex flex-col">
+                <div class="chart-container">
+                    <canvas id="dynastyChart"></canvas>
+                </div>
+                <p class="text-center text-xs text-gray-400 mt-2">Data: Approximate duration in years of major unified dynasties.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Philosophy -->
+    <section class="py-16 bg-white border-y border-[#e6e2d8]" id="philosophy">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12 text-center">
+                <h2 class="text-3xl font-bold mb-4 serif text-[#2c2c2c]">The Three Teachings (San Jiao)</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Chinese culture is a syncretic blend. It is often said one is a "Confucian at work, a Taoist at leisure, and a Buddhist at death."
+                </p>
+            </div>
+
+            <!-- Custom Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 mb-8 border-b border-gray-200">
+                <button class="tab-active px-6 py-3 text-lg font-medium transition-all" id="tab-confucianism" onclick="updatePhilosophy('confucianism')">Confucianism</button>
+                <button class="tab-inactive px-6 py-3 text-lg font-medium transition-all" id="tab-taoism" onclick="updatePhilosophy('taoism')">Taoism</button>
+                <button class="tab-inactive px-6 py-3 text-lg font-medium transition-all" id="tab-buddhism" onclick="updatePhilosophy('buddhism')">Buddhism</button>
+            </div>
+
+            <!-- Content Area -->
+            <div class="grid md:grid-cols-2 gap-12 items-center min-h-[300px] fade-in" id="philosophy-content">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Lifestyle (Tea & Festivals) -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto" id="lifestyle">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold mb-4 serif text-[#2c2c2c]">The Art of Living</h2>
+            <p class="text-gray-600">Structured systems for flavor, health, and celebration.</p>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-16">
+            <!-- Tea Culture Radar -->
+            <div class="flex flex-col">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-bold serif text-[#5c7a6c] flex items-center gap-2">
+                        <span class="text-2xl">🍵</span> Tea (Cha) Culture
+                    </h3>
+                    <!-- Controls -->
+                    <div class="flex gap-2">
+                        <button class="px-2 py-1 text-xs border border-[#5c7a6c] rounded hover:bg-[#5c7a6c] hover:text-white transition" onclick="updateTea('green')">Green</button>
+                        <button class="px-2 py-1 text-xs border border-[#5c7a6c] rounded hover:bg-[#5c7a6c] hover:text-white transition" onclick="updateTea('black')">Black</button>
+                        <button class="px-2 py-1 text-xs border border-[#5c7a6c] rounded hover:bg-[#5c7a6c] hover:text-white transition" onclick="updateTea('puer')">Pu-erh</button>
+                    </div>
+                </div>
+                
+                <p class="text-sm text-gray-600 mb-4 h-12" id="tea-desc">
+                    Green Tea: Unoxidized, preserving natural antioxidants. Fresh, vegetal flavor profile.
+                </p>
+
+                <div class="chart-container bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                    <canvas id="teaChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Festivals List -->
+            <div>
+                <h3 class="text-xl font-bold serif text-[#a83f39] mb-6 flex items-center gap-2">
+                    <span class="text-2xl">🏮</span> Traditional Festivals
+                </h3>
+                <div class="space-y-4">
+                    <!-- Spring Festival -->
+                    <div class="group bg-white p-4 rounded-lg shadow-sm border-l-4 border-[#a83f39] hover:shadow-md transition cursor-pointer" onclick="toggleDetail('fest-1')">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-[#2c2c2c]">Spring Festival (New Year)</span>
+                            <span class="text-xs text-gray-400">Lunar Month 1, Day 1</span>
+                        </div>
+                        <div class="hidden mt-3 text-sm text-gray-600 border-t pt-2 border-gray-100" id="fest-1">
+                            The most significant holiday. Customs include family reunion dinners, red envelopes (hongbao), dumplings, and fireworks to scare away the Nian monster.
+                        </div>
+                    </div>
+                    
+                    <!-- Mid-Autumn -->
+                    <div class="group bg-white p-4 rounded-lg shadow-sm border-l-4 border-[#c5a059] hover:shadow-md transition cursor-pointer" onclick="toggleDetail('fest-2')">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-[#2c2c2c]">Mid-Autumn Festival</span>
+                            <span class="text-xs text-gray-400">Lunar Month 8, Day 15</span>
+                        </div>
+                        <div class="hidden mt-3 text-sm text-gray-600 border-t pt-2 border-gray-100" id="fest-2">
+                            Celebrating the harvest and the full moon, a symbol of reunion. Key customs include eating mooncakes and lantern lighting.
+                        </div>
+                    </div>
+
+                    <!-- Dragon Boat -->
+                    <div class="group bg-white p-4 rounded-lg shadow-sm border-l-4 border-[#5c7a6c] hover:shadow-md transition cursor-pointer" onclick="toggleDetail('fest-3')">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-[#2c2c2c]">Dragon Boat Festival</span>
+                            <span class="text-xs text-gray-400">Lunar Month 5, Day 5</span>
+                        </div>
+                        <div class="hidden mt-3 text-sm text-gray-600 border-t pt-2 border-gray-100" id="fest-3">
+                            Commemorates the poet Qu Yuan. Activities include dragon boat racing and eating Zongzi (sticky rice dumplings in bamboo leaves).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medicine Teaser -->
+                <div class="mt-8 bg-[#f4f7f5] p-6 rounded-lg border border-[#5c7a6c]/20">
+                    <h4 class="font-bold text-[#5c7a6c] mb-2">Traditional Medicine (TCM)</h4>
+                    <p class="text-xs text-gray-600">
+                        Based on the concept of Qi (vital energy) flowing through meridians. Health is the balance of Yin and Yang.
+                    </p>
+                    <div class="flex gap-4 mt-3 text-2xl opacity-70">
+                        <span title="Acupuncture">📍</span>
+                        <span title="Herbalism">🌿</span>
+                        <span title="Cupping">🔮</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Arts -->
+    <section class="py-16 bg-[#2c2c2c] text-[#fdfbf7]" id="arts">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4 serif text-white">Movement &amp; Ink</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    The cultivation of the self through physical discipline (Wu) and literary refinement (Wen).
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Martial Arts -->
+                <div>
+                    <h3 class="text-xl font-bold mb-6 text-[#a83f39] border-b border-[#a83f39] pb-2 inline-block">Martial Arts (Wushu)</h3>
+                    <p class="text-sm text-gray-400 mb-6">
+                        Comparison of "External" (Shaolin) vs "Internal" (Tai Chi) styles.
+                    </p>
+
+                    <div class="space-y-6">
+                        <!-- Stat 1 -->
+                        <div>
+                            <div class="flex justify-between mb-1 text-sm">
+                                <span>Explosive Power (Shaolin)</span>
+                                <span class="text-[#a83f39]">High</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="bg-[#a83f39] h-2 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <!-- Stat 2 -->
+                        <div>
+                            <div class="flex justify-between mb-1 text-sm">
+                                <span>Internal Qi Flow (Tai Chi)</span>
+                                <span class="text-[#5c7a6c]">Dominant</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="bg-[#5c7a6c] h-2 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                         <!-- Stat 3 -->
+                         <div>
+                            <div class="flex justify-between mb-1 text-sm">
+                                <span>Speed of Movement</span>
+                            </div>
+                            <div class="flex w-full h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="bg-[#a83f39] h-full" style="width: 80%" title="External"></div>
+                                <div class="bg-[#5c7a6c] h-full" style="width: 20%" title="Internal"></div>
+                            </div>
+                            <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                <span>External (Fast)</span>
+                                <span>Internal (Slow)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calligraphy -->
+                <div class="bg-[#363636] p-6 rounded-lg border border-gray-700">
+                    <h3 class="text-xl font-bold mb-6 text-white border-b border-white pb-2 inline-block">Calligraphy (Shufa)</h3>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="text-center p-4 bg-[#2c2c2c] rounded border border-gray-600">
+                            <div class="text-3xl mb-2">🖌️</div>
+                            <div class="font-bold text-sm">The Brush</div>
+                            <div class="text-xs text-gray-400">Animal hair, bamboo</div>
+                        </div>
+                        <div class="text-center p-4 bg-[#2c2c2c] rounded border border-gray-600">
+                            <div class="text-3xl mb-2">⬛</div>
+                            <div class="font-bold text-sm">The Ink</div>
+                            <div class="text-xs text-gray-400">Soot &amp; glue</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 text-sm text-gray-300 leading-relaxed">
+                        <p class="mb-2"><strong class="text-[#c5a059]">Concept:</strong> Calligraphy is not just writing; it is a projection of the artist's energy (Qi). </p>
+                        <p><strong class="text-[#c5a059]">Styles:</strong> From the ancient Seal Script (circles/lines) to the wild Cursive Script (connected strokes expressing emotion).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-gray-300">
+<div class="container mx-auto px-6 py-12 lg:px-8">
+<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+<div>
+<h5 class="text-lg font-semibold text-white mb-4">Home</h5>
+<ul class="space-y-2">
+<li><a href="https://www.chinacitytrip.com/Anhui/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Anhui</a></li>
+<li><a href="https://www.chinacitytrip.com/Fujian/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl03_title">Fujian</a></li>
+<li><a href="https://www.chinacitytrip.com/Gansu/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl04_title">Gansu</a></li>
+<li><a href="https://www.chinacitytrip.com/Guangdong/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl05_title">Guangdong</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-lg font-semibold text-white mb-4">Regions</h5>
+<ul class="space-y-2">
+<li><a href="https://www.chinacitytrip.com/Qinghai/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl20_title">Qinghai</a></li>
+<li><a href="https://www.chinacitytrip.com/Shaanxi/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl21_title">Shaanxi</a></li>
+<li><a href="https://www.chinacitytrip.com/Shandong/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl22_title">Shandong</a></li>
+<li><a href="https://www.chinacitytrip.com/Shanxi/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl23_title">Shanxi</a></li>
+<li><a href="https://www.chinacitytrip.com/Sichuan/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl24_title">Sichuan</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-lg font-semibold text-white mb-4">More Regions</h5>
+<ul class="space-y-2">
+<li><a href="https://www.chinacitytrip.com/Guizhou/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl07_title">Guizhou</a></li>
+<li><a href="https://www.chinacitytrip.com/Hainan/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl08_title">Hainan</a></li>
+<li><a href="https://www.chinacitytrip.com/Hebei/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl09_title">Hebei</a></li>
+<li><a href="https://www.chinacitytrip.com/Heilongjiang/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl10_title">Heilongjiang</a></li>
+<li><a href="https://www.chinacitytrip.com/Henan/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl11_title">Henan</a></li>
+<li><a href="https://www.chinacitytrip.com/Hubei/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl12_title">Hubei</a></li>
+<li><a href="https://www.chinacitytrip.com/Hunan/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl13_title">Hunan</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-lg font-semibold text-white mb-4">Contact Us</h5>
+<div class="space-y-2">
+<p>WA<br/> USA</p>
+<p>
+<a class="hover:text-white hover:underline transition-colors duration-200" href="mailto:contact@dataknobs.com">contact@chinacitytrip.com</a>
+</p>
+<p>
+<!-- <a href="tel:+14253411222" class="hover:text-white hover:underline transition-colors duration-200">+1 (425) </a> -->
+</p>
+</div>
+</div>
+</div>
+<div class="mt-12 border-t border-gray-700 pt-8 flex flex-col items-center justify-between sm:flex-row">
+<p class="text-sm text-gray-400">© 2026 Kreatewebsites. All rights reserved.</p>
+<div class="flex space-x-4 mt-4 sm:mt-0">
+<a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.facebook.com/kreatewebsites/">
+<span class="sr-only">Facebook</span>
+<svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24">
+<path clip-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.772-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" fill-rule="evenodd"></path>
+</svg>
+</a>
+<a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.twitter.com/dataknobs/">
+<span class="sr-only">Twitter</span>
+<svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24">
+<path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+</svg>
+</a>
+<a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.linkedin.com/company/kreatewebsites/">
+<span class="sr-only">LinkedIn</span>
+<svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24">
+<path clip-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.783-1.75-1.75s.784-1.75 1.75-1.75 1.75.783 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill-rule="evenodd"></path>
+</svg>
+</a>
+</div>
+<div class="flex gap-4 mt-4 sm:mt-0">
+<a class="text-stone-400 hover:text-white" href="https://www.chinacitytrip.com/privacypolicy,html">Privacy Policy</a> <!-- 13 -->
+<a class="text-stone-400 hover:text-white" href="https://www.chinacitytrip.com/sitemap.html">Sitemap</a> <!-- 14 -->
+</div>
+</div>
+</div>
+</footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- Data Definitions ---
+
+        // 1. Dynasty Data
+        const dynastyData = [
+            { name: "Qin", duration: 15, years: "221-206 BC", desc: "Short but pivotal. Unification of China, standardization of writing and measures, start of the Great Wall. Legalism dominant." },
+            { name: "Han", duration: 426, years: "206 BC-220 AD", desc: "The Golden Age. Establishment of the Silk Road, invention of paper, and promotion of Confucianism as state philosophy." },
+            { name: "Tang", duration: 289, years: "618-907 AD", desc: "Cosmopolitan peak. Flourishing of poetry (Li Bai, Du Fu) and Buddhism. Openness to foreign cultures." },
+            { name: "Song", duration: 319, years: "960-1279 AD", desc: "Economic revolution. Invention of gunpowder, compass, and movable type. Neo-Confucianism rises." },
+            { name: "Ming", duration: 276, years: "1368-1644 AD", desc: "Restoration of Han rule. Construction of the Forbidden City and voyages of Zheng He. Isolationism grows." },
+            { name: "Qing", duration: 268, years: "1644-1912 AD", desc: "The final dynasty (Manchu rule). Massive territorial expansion. Ended with the Xinhai Revolution." }
+        ];
+
+        // 2. Philosophy Data
+        const philosophyContent = {
+            confucianism: {
+                title: "Confucianism (Ru Jia)",
+                icon: "🏛️",
+                color: "#a83f39",
+                points: [
+                    "Focus: Social Order, Ethics, Ritual (Li).",
+                    "Core Value: Ren (Benevolence) & Xiao (Filial Piety).",
+                    "Goal: A harmonious society through correct relationships (Ruler/Subject, Father/Son)."
+                ],
+                quote: "It does not matter how slowly you go as long as you do not stop."
+            },
+            taoism: {
+                title: "Taoism (Dao Jia)",
+                icon: "☯️",
+                color: "#2c2c2c",
+                points: [
+                    "Focus: Nature, Spontaneity, Flow.",
+                    "Core Value: Wu Wei (Effortless Action).",
+                    "Goal: Harmony with the Tao (The Way) and longevity."
+                ],
+                quote: "Nature does not hurry, yet everything is accomplished."
+            },
+            buddhism: {
+                title: "Buddhism (Fo Jia)",
+                icon: "🪷",
+                color: "#c5a059",
+                points: [
+                    "Focus: Mind, Suffering, Compassion.",
+                    "Core Value: The Middle Way & Karma.",
+                    "Goal: Enlightenment (Nirvana) and cessation of suffering."
+                ],
+                quote: "Peace comes from within. Do not seek it without."
+            }
+        };
+
+        // 3. Tea Data
+        const teaData = {
+            green: {
+                label: "Green Tea (Longjing)",
+                data: [9, 4, 8, 2, 9], // Freshness, Sweetness, Aroma, Body, Health
+                desc: "Green Tea: Unoxidized, preserving natural antioxidants. Fresh, vegetal flavor profile.",
+                color: "#5c7a6c"
+            },
+            black: {
+                label: "Black Tea (Keemun)",
+                data: [3, 8, 7, 8, 6],
+                desc: "Black Tea (Red Tea): Fully oxidized. Malty, sweet, and robust with a reddish hue.",
+                color: "#a83f39"
+            },
+            puer: {
+                label: "Pu-erh Tea",
+                data: [4, 5, 6, 10, 8],
+                desc: "Pu-erh: Fermented and aged. Earthy, smooth, and complex. Aids digestion.",
+                color: "#2c2c2c"
+            }
+        };
+
+        // --- Chart.js Initialization ---
+
+        let dChart, tChart;
+
+        function initCharts() {
+            // Dynasty Bar Chart
+            const ctxD = document.getElementById('dynastyChart').getContext('2d');
+            
+            // Text Wrapping Helper for Labels
+            const wrapLabel = (str) => {
+                if (str.length > 16) {
+                    const words = str.split(' ');
+                    const lines = [];
+                    let currentLine = words[0];
+                    for (let i = 1; i < words.length; i++) {
+                        if ((currentLine + " " + words[i]).length < 16) {
+                            currentLine += " " + words[i];
+                        } else {
+                            lines.push(currentLine);
+                            currentLine = words[i];
+                        }
+                    }
+                    lines.push(currentLine);
+                    return lines;
+                }
+                return str;
+            };
+
+            const labelsD = dynastyData.map(d => wrapLabel(d.name));
+
+            dChart = new Chart(ctxD, {
+                type: 'bar',
+                data: {
+                    labels: labelsD,
+                    datasets: [{
+                        label: 'Duration (Years)',
+                        data: dynastyData.map(d => d.duration),
+                        backgroundColor: '#c5a059',
+                        hoverBackgroundColor: '#a83f39',
+                        borderRadius: 4,
+                        barPercentage: 0.6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    onClick: (e, activeEls) => {
+                        if (activeEls.length > 0) {
+                            const index = activeEls[0].index;
+                            updateDynastyInfo(index);
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    return Array.isArray(label) ? label.join(' ') : label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#f0f0f0' },
+                            title: { display: true, text: 'Years' }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+
+            // Tea Radar Chart
+            const ctxT = document.getElementById('teaChart').getContext('2d');
+            tChart = new Chart(ctxT, {
+                type: 'radar',
+                data: {
+                    labels: ['Freshness', 'Sweetness', 'Aroma', 'Body/Depth', 'Health Benefit'],
+                    datasets: [{
+                        label: 'Tea Profile',
+                        data: teaData.green.data,
+                        backgroundColor: 'rgba(92, 122, 108, 0.2)',
+                        borderColor: '#5c7a6c',
+                        pointBackgroundColor: '#5c7a6c',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: '#eee' },
+                            grid: { color: '#eee' },
+                            pointLabels: {
+                                font: { size: 12, family: 'Noto Sans' },
+                                color: '#666'
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 10
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    return Array.isArray(label) ? label.join(' ') : label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- Interaction Logic ---
+
+        function updateDynastyInfo(index) {
+            const data = dynastyData[index];
+            document.getElementById('d-name').innerText = data.name + " Dynasty";
+            document.getElementById('d-years').innerText = data.years;
+            document.getElementById('d-desc').innerText = data.desc;
+        }
+
+        function updatePhilosophy(type) {
+            // Update Tabs
+            const keys = ['confucianism', 'taoism', 'buddhism'];
+            keys.forEach(k => {
+                const tab = document.getElementById(`tab-${k}`);
+                if (k === type) {
+                    tab.classList.remove('tab-inactive');
+                    tab.classList.add('tab-active');
+                } else {
+                    tab.classList.remove('tab-active');
+                    tab.classList.add('tab-inactive');
+                }
+            });
+
+            // Update Content
+            const data = philosophyContent[type];
+            const contentDiv = document.getElementById('philosophy-content');
+            
+            // Reset Animation
+            contentDiv.classList.remove('fade-in');
+            void contentDiv.offsetWidth; // Trigger reflow
+            contentDiv.classList.add('fade-in');
+
+            contentDiv.innerHTML = `
+                <div class="flex justify-center items-center">
+                    <div class="text-[8rem] opacity-90 select-none bounce" style="color: ${data.color}">${data.icon}</div>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 serif" style="color: ${data.color}">${data.title}</h3>
+                    <ul class="space-y-3 mb-6">
+                        ${data.points.map(p => `<li class="flex items-start gap-2"><span class="text-[#c5a059] mt-1">✦</span> <span class="text-gray-700">${p}</span></li>`).join('')}
+                    </ul>
+                    <div class="bg-gray-50 border-l-4 p-4 italic text-gray-600 text-sm" style="border-color: ${data.color}">
+                        "${data.quote}"
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateTea(type) {
+            const data = teaData[type];
+            
+            // Update Text
+            document.getElementById('tea-desc').innerText = data.desc;
+            
+            // Update Chart
+            tChart.data.datasets[0].data = data.data;
+            tChart.data.datasets[0].label = data.label;
+            tChart.data.datasets[0].borderColor = data.color;
+            tChart.data.datasets[0].pointBackgroundColor = data.color;
+            tChart.data.datasets[0].backgroundColor = data.color + '33'; // Add transparency
+            tChart.update();
+        }
+
+        function toggleDetail(id) {
+            const el = document.getElementById(id);
+            if (el.classList.contains('hidden')) {
+                el.classList.remove('hidden');
+                el.classList.add('fade-in');
+            } else {
+                el.classList.add('hidden');
+            }
+        }
+
+        // Initialize on Load
+        document.addEventListener('DOMContentLoaded', () => {
+            initCharts();
+            // Load defaults
+            updateDynastyInfo(1); // Han
+            updatePhilosophy('confucianism');
+        });
+
+    </script>
+
+</body></html>

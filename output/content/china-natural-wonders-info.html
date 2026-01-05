@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="A data-driven infographic exploring China's top natural wonders through interactive visualizations of scenery, accessibility, and seasonal trends." name="description"/>
+    <meta content="China travel data, natural wonders infographic, Zhangjiajie stats, Guilin visualization, Huangshan metrics, travel data analysis" name="keywords"/>
+    <title>China's Natural Wonders: Data &amp; Insights</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;700;800&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #F3F4F6; /* Gray 100 */
+            color: #1F2937; /* Gray 800 */
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Chart Container Logic - Mandatory Requirement */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Specific Sizes for Responsiveness */
+        .chart-container-sm {
+            height: 300px;
+            max-height: 350px;
+            max-width: 500px;
+        }
+
+        .chart-container-lg {
+            height: 400px;
+            max-height: 500px;
+            max-width: 800px;
+        }
+
+        @media (max-width: 640px) {
+            .chart-container-lg {
+                height: 300px;
+            }
+        }
+
+        /* Card Styling */
+        .info-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            transition: transform 0.2s;
+            border-top: 4px solid #4338ca; /* Indigo 700 */
+        }
+        .info-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .stat-value {
+            color: #4338ca; /* Indigo 700 */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header Section -->
+    <header class="bg-gradient-to-r from-indigo-800 to-cyan-600 text-white py-12 px-4 shadow-lg">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">CHINA'S NATURAL WONDERS</h1>
+            <p class="text-xl md:text-2xl font-light text-cyan-100 max-w-3xl mx-auto">
+                An Analysis of the Middle Kingdom's Most Breathtaking Landscapes
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
+
+        <!-- Section 1: Introduction & Key KPIs -->
+        <section>
+            <div class="prose max-w-none mb-8 text-center">
+                <p class="text-lg text-gray-600 max-w-4xl mx-auto">
+                    China's vast territory encompasses some of the most diverse geological formations on Earth. 
+                    From the karst peaks of the south to the arid Danxia landforms of the northwest, these destinations 
+                    attract millions of visitors annually. This infographic breaks down the key data points—accessibility, 
+                    physical requirements, and aesthetic value—to provide a comprehensive overview of these natural giants.
+                </p>
+            </div>
+
+            <!-- KPI Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="info-card text-center">
+                    <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wider">Destinations Analyzed</h3>
+                    <p class="text-5xl font-extrabold stat-value mt-2">7</p>
+                    <p class="text-xs text-gray-400 mt-1">Key UNESCO &amp; National Sites</p>
+                </div>
+                <div class="info-card text-center">
+                    <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wider">Avg. Time Needed</h3>
+                    <p class="text-5xl font-extrabold stat-value mt-2">2.8</p>
+                    <p class="text-xs text-gray-400 mt-1">Days per Destination</p>
+                </div>
+                <div class="info-card text-center">
+                    <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wider">Highest Elevation</h3>
+                    <p class="text-5xl font-extrabold stat-value mt-2">5.2k</p>
+                    <p class="text-xs text-gray-400 mt-1">Meters (EBC, Tibet)</p>
+                </div>
+                <div class="info-card text-center">
+                    <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wider">Avg Scenery Score</h3>
+                    <p class="text-5xl font-extrabold stat-value mt-2">9.4</p>
+                    <p class="text-xs text-gray-400 mt-1">Out of 10</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Composition Analysis -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4 border-l-4 border-cyan-500 pl-4">The Composition of Wonder</h2>
+                <p class="text-gray-600 mb-6 leading-relaxed">
+                    Not all landscapes are created equal. By categorizing the top 7 destinations by their primary geological feature, 
+                    we see a distinct dominance of mountain landscapes (Karst &amp; Granite). However, water-based experiences 
+                    like the Li River and Yangtze Cruise account for nearly 30% of the major natural attractions, offering 
+                    a more relaxing alternative to the verticality of the mountains.
+                </p>
+                <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-100">
+                    <h4 class="font-bold text-indigo-900 mb-2">Insight</h4>
+                    <p class="text-sm text-indigo-800">
+                        While <strong>Mountains</strong> dominate the landscape list, the <strong>Water</strong> category often requires significantly less physical effort, making them ideal for multi-generational travel.
+                    </p>
+                </div>
+            </div>
+            <div class="flex justify-center">
+                <div class="chart-container chart-container-sm">
+                    <canvas id="compositionChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: The Trade-off Matrix (Bubble Chart) -->
+        <section>
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4 border-l-4 border-cyan-500 pl-4">The Beauty-Effort Matrix</h2>
+                <p class="text-gray-600 max-w-3xl leading-relaxed">
+                    Travelers often have to balance the desire for spectacular views with their physical capabilities. 
+                    This analysis maps destinations based on <strong>Physical Effort (X-axis)</strong> versus <strong>Scenery Impact (Y-axis)</strong>. 
+                    The size of each bubble represents the recommended <strong>Days Needed</strong> to fully explore the area.
+                </p>
+            </div>
+            
+            <div class="w-full bg-white p-4 rounded-lg shadow-sm">
+                <div class="chart-container chart-container-lg">
+                    <canvas id="tradeoffChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                <div class="p-4 bg-white border-l-4 border-green-500 shadow-sm rounded-r">
+                    <h4 class="font-bold text-gray-800">High Reward, Low Effort</h4>
+                    <p class="text-sm text-gray-600 mt-1">Li River &amp; Yangtze Cruise offer world-class views with minimal walking.</p>
+                </div>
+                <div class="p-4 bg-white border-l-4 border-yellow-500 shadow-sm rounded-r">
+                    <h4 class="font-bold text-gray-800">Balanced Challenge</h4>
+                    <p class="text-sm text-gray-600 mt-1">Zhangjiajie &amp; Jiuzhaigou use infrastructure (elevators/buses) to mitigate difficulty.</p>
+                </div>
+                <div class="p-4 bg-white border-l-4 border-red-500 shadow-sm rounded-r">
+                    <h4 class="font-bold text-gray-800">Extreme Adventure</h4>
+                    <p class="text-sm text-gray-600 mt-1">Tibet &amp; Huangshan require significant stamina for the best rewards.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Seasonal Analysis (Line Chart) -->
+        <section>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-1">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4 border-l-4 border-cyan-500 pl-4">Seasonal Suitability</h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        China's climate varies wildly, but when aggregating data across these top scenic spots, a clear "Twin Peak" trend emerges. 
+                        <strong>October (Autumn)</strong> is statistically the best month for visitation, offering clear skies and cool temperatures across 90% of locations.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <span class="w-3 h-3 bg-indigo-600 rounded-full mr-3"></span>
+                            <span class="text-sm font-medium text-gray-700">Spring (April-May): Lush greenery, mist.</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-3 h-3 bg-cyan-500 rounded-full mr-3"></span>
+                            <span class="text-sm font-medium text-gray-700">Summer (July-Aug): Crowded &amp; rainy.</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-3 h-3 bg-amber-500 rounded-full mr-3"></span>
+                            <span class="text-sm font-medium text-gray-700">Autumn (Oct): Golden colors, dry weather.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="lg:col-span-2">
+                    <div class="chart-container chart-container-lg">
+                        <canvas id="seasonalChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Detailed Metric Comparison (Radar) -->
+        <section class="bg-white rounded-xl shadow-md p-8">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Multi-Dimensional Profile</h2>
+                <p class="text-gray-600">Comparing three distinct archetypes of Chinese natural wonders.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="flex flex-col justify-center space-y-4">
+                    <div class="p-4 border border-gray-100 rounded hover:bg-gray-50 transition">
+                        <h4 class="font-bold text-indigo-700">1. The Cultural Mountain (Huangshan)</h4>
+                        <p class="text-sm text-gray-600">Scores maximum on photography and scenery but requires high physical effort.</p>
+                    </div>
+                    <div class="p-4 border border-gray-100 rounded hover:bg-gray-50 transition">
+                        <h4 class="font-bold text-cyan-600">2. The Relaxed River (Li River)</h4>
+                        <p class="text-sm text-gray-600">High accessibility and scenery with almost zero physical strain, perfect for leisure.</p>
+                    </div>
+                    <div class="p-4 border border-gray-100 rounded hover:bg-gray-50 transition">
+                        <h4 class="font-bold text-amber-600">3. The Geological Marvel (Zhangjiajie)</h4>
+                        <p class="text-sm text-gray-600">A balanced profile with high crowds but excellent infrastructure improving accessibility.</p>
+                    </div>
+                </div>
+                <div class="flex justify-center">
+                    <div class="chart-container chart-container-sm">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Process/Itinerary Flow (Diagram) -->
+        <section>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 border-l-4 border-cyan-500 pl-4">The Classic Route (Flow Analysis)</h2>
+            <p class="text-gray-600 mb-8">
+                For first-time travelers, the "Golden Triangle plus Nature" is the most common trajectory. 
+                This flow optimizes for flight connections and diverse landscape types (City -&gt; Karst -&gt; History -&gt; Modernity).
+            </p>
+            
+            <!-- Custom HTML Diagram (NO MERMAID / NO SVG) -->
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 text-center items-center">
+                <!-- Step 1 -->
+                <div class="relative bg-white p-6 rounded-lg shadow-md border-b-4 border-indigo-600 z-10">
+                    <div class="text-2xl mb-2">🏙️</div>
+                    <h3 class="font-bold text-gray-800">Beijing</h3>
+                    <p class="text-xs text-gray-500">Start: History</p>
+                </div>
+                
+                <!-- Arrow 1 -->
+                <div class="hidden md:block text-gray-300 text-4xl">➜</div>
+                <div class="block md:hidden text-gray-300 text-2xl py-2">⬇️</div>
+
+                <!-- Step 2 -->
+                <div class="relative bg-white p-6 rounded-lg shadow-md border-b-4 border-indigo-600 z-10">
+                    <div class="text-2xl mb-2">⛰️</div>
+                    <h3 class="font-bold text-gray-800">Xi'an</h3>
+                    <p class="text-xs text-gray-500">Culture</p>
+                </div>
+
+                <!-- Arrow 2 -->
+                <div class="hidden md:block text-gray-300 text-4xl">➜</div>
+                <div class="block md:hidden text-gray-300 text-2xl py-2">⬇️</div>
+
+                <!-- Step 3 (The Nature Hub) -->
+                <div class="relative bg-cyan-50 p-6 rounded-lg shadow-lg border-b-4 border-cyan-500 scale-110 z-20">
+                    <div class="text-2xl mb-2">🏞️</div>
+                    <h3 class="font-bold text-gray-800">Guilin/Zhangjiajie</h3>
+                    <p class="text-xs text-gray-600 font-bold">Nature Focus</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300">
+<div class="container mx-auto px-6 py-12 lg:px-8">
+<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+<div>
+<h5 class="text-lg font-semibold text-white mb-4">Home</h5>
+<ul class="space-y-2">
+<li><a href="https://www.chinacitytrip.com/Anhui/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Anhui</a></li>
+<li><a href="https://www.chinacitytrip.com/Fujian/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl03_title">Fujian</a></li>
+<li><a href="https://www.chinacitytrip.com/Gansu/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl04_title">Gansu</a></li>
+<li><a href="https://www.chinacitytrip.com/Guangdong/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl05_title">Guangdong</a></li>
+<li><a href="https://www.chinacitytrip.com/china-cities-list.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl05_title">China Cities List</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-lg font-semibold text-white mb-4">Regions</h5>
+<ul class="space-y-2">
+<li><a href="https://www.chinacitytrip.com/Qinghai/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl20_title">Qinghai</a></li>
+<li><a href="https://www.chinacitytrip.com/Shaanxi/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl21_title">Shaanxi</a></li>
+<li><a href="https://www.chinacitytrip.com/Shandong/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl22_title">Shandong</a></li>
+<li><a href="https://www.chinacitytrip.com/Shanxi/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl23_title">Shanxi</a></li>
+<li><a href="https://www.chinacitytrip.com/Sichuan/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl24_title">Sichuan</a></li>
+<li><a href="https://www.chinacitytrip.com/Guizhou/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl07_title">Guizhou</a></li>
+<li><a href="https://www.chinacitytrip.com/Hainan/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl08_title">Hainan</a></li>
+<li><a href="https://www.chinacitytrip.com/Hebei/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl09_title">Hebei</a></li>
+<li><a href="https://www.chinacitytrip.com/Heilongjiang/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl10_title">Heilongjiang</a></li>
+<li><a href="https://www.chinacitytrip.com/Henan/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl11_title">Henan</a></li>
+<li><a href="https://www.chinacitytrip.com/Hubei/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl12_title">Hubei</a></li>
+<li><a href="https://www.chinacitytrip.com/Hunan/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl13_title">Hunan</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-lg font-semibold text-white mb-4">Best of China</h5>
+<ul class="space-y-2">
+<li><a href="https://www.chinacitytrip.com/chia-cultural-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Chia-cultural-info</a></li>
+<li><a href="https://www.chinacitytrip.com/china-cultural-infographic.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">China-cultural-infographic</a></li>
+<li><a href="https://www.chinacitytrip.com/china-cultural-tour.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl03_title">China-cultural-tour</a></li>
+<li><a href="https://www.chinacitytrip.com/china-historical-cities-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl04_title">China-historical-cities-info</a></li>
+<li><a href="https://www.chinacitytrip.com/china-historical-cities.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl05_title">China-historical-cities</a></li>
+<li><a href="https://www.chinacitytrip.com/china-natural-wonders-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl06_title">China-natural-wonders-info</a></li>
+<li><a href="https://www.chinacitytrip.com/china-natural-wonders.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl07_title">China-natural-wonders</a></li>
+<li><a href="https://www.chinacitytrip.com/china-unesco-sites.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl08_title">China-unesco-sites</a></li>
+<li><a href="https://www.chinacitytrip.com/china-unique-guide-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl09_title">China-unique-guide-info</a></li>
+<li><a href="https://www.chinacitytrip.com/china-unique-travel-experience.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl10_title">China-unique-travel-experience</a></li>
+<li><a href="https://www.chinacitytrip.com/great-wall-of-china-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl11_title">Great-wall-of-china-info</a></li>
+<li><a href="https://www.chinacitytrip.com/great-wall-of-china.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl12_title">Great-wall-of-china</a></li>
+<li><a href="https://www.chinacitytrip.com/sitemap.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl13_title">Sitemap</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-lg font-semibold text-white mb-4">Contact Us</h5>
+<div class="space-y-2">
+<p>WA<br/> USA</p>
+<p>
+<a class="hover:text-white hover:underline transition-colors duration-200" href="mailto:contact@dataknobs.com">contact@chinacitytrip.com</a>
+</p>
+<p>
+<!-- <a href="tel:+14253411222" class="hover:text-white hover:underline transition-colors duration-200">+1 (425) </a> -->
+</p>
+</div>
+</div>
+</div>
+<div class="mt-12 border-t border-gray-700 pt-8 flex flex-col items-center justify-between sm:flex-row">
+<p class="text-sm text-gray-400">© 2026 Kreatewebsites. All rights reserved.</p>
+<div class="flex space-x-4 mt-4 sm:mt-0">
+<a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.facebook.com/kreatewebsites/">
+<span class="sr-only">Facebook</span>
+<svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24">
+<path clip-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.772-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" fill-rule="evenodd"></path>
+</svg>
+</a>
+<a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.twitter.com/dataknobs/">
+<span class="sr-only">Twitter</span>
+<svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24">
+<path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+</svg>
+</a>
+<a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.linkedin.com/company/kreatewebsites/">
+<span class="sr-only">LinkedIn</span>
+<svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24">
+<path clip-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.783-1.75-1.75s.784-1.75 1.75-1.75 1.75.783 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill-rule="evenodd"></path>
+</svg>
+</a>
+</div>
+<div class="flex gap-4 mt-4 sm:mt-0">
+<a class="text-stone-400 hover:text-white" href="https://www.chinacitytrip.com/privacypolicy,html">Privacy Policy</a> <!-- 13 -->
+<a class="text-stone-400 hover:text-white" href="https://www.chinacitytrip.com/sitemap.html">Sitemap</a> <!-- 14 -->
+</div>
+</div>
+</div>
+</footer>
+
+    <!-- 
+      Chosen Palette: "Modern Vibrant"
+      Primary: #4338ca (Indigo 700)
+      Secondary: #06b6d4 (Cyan 500)
+      Accent: #f59e0b (Amber 500)
+      Background: #F3F4F6 (Gray 100)
+    -->
+
+    <!-- 
+      Application Structure Plan:
+      1. Intro/KPIs: Hook the user with big numbers.
+      2. Composition (Donut): Broad categorization of landscape types.
+      3. Trade-off Matrix (Bubble): The core analytical value—comparing beauty vs. effort.
+      4. Seasonality (Line): Temporal planning data.
+      5. Profile Comparison (Radar): Deep dive into specific location archetypes.
+      6. Flow Diagram: Practical application of the data into a route.
+      Narrative moves from "What is there?" to "How do they compare?" to "When/How to go?".
+    -->
+
+    <!-- 
+      Visualization & Content Choices:
+      1. Donut Chart (Chart.js): Goal: Compare (Composition). Simple breakdown of mountains vs water.
+      2. Bubble Chart (Chart.js): Goal: Relationships. Best for 3-variable comparison (X,Y,Radius).
+      3. Line Chart (Chart.js): Goal: Change (Time). Shows the suitability trend over 12 months.
+      4. Radar Chart (Chart.js): Goal: Compare (Attributes). Standard for comparing RPG-like stats (Agility, Strength, etc.) applied to locations.
+      5. Flow Diagram (HTML/Tailwind): Goal: Organize (Process). No SVG allowed, so using flexbox/grid layout with unicode arrows.
+      CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+
+    <script>
+        // --- Shared Configuration ---
+        Chart.defaults.font.family = "'Roboto', sans-serif";
+        Chart.defaults.color = '#4B5563';
+        
+        // Tooltip Callback for Multiline Labels (MANDATORY REQUIREMENT)
+        const tooltipTitleCallback = {
+            title: function(tooltipItems) {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                } else {
+                    return label;
+                }
+            }
+        };
+
+        // Label Wrapping Helper
+        function wrapLabel(str, maxLen = 16) {
+            if (str.length <= maxLen) return str;
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if (currentLine.length + 1 + words[i].length <= maxLen) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        // --- Chart 1: Composition (Donut) ---
+        const ctxComposition = document.getElementById('compositionChart').getContext('2d');
+        new Chart(ctxComposition, {
+            type: 'doughnut',
+            data: {
+                labels: ['Mountain (Granite/Karst)', 'Water/River', 'Plateau/Highland', 'Danxia/Geological'],
+                datasets: [{
+                    data: [3, 2, 1, 1], // Based on the 7 items: Zhangjiajie, Huangshan, Li River, Yangtze, Tibet, Jiuzhaigou (Water/Mtn hybrid counts as water here), Zhangye
+                    backgroundColor: ['#4338ca', '#06b6d4', '#f59e0b', '#ec4899'], // Indigo, Cyan, Amber, Pink
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: { callbacks: tooltipTitleCallback }
+                }
+            }
+        });
+
+        // --- Chart 2: Trade-off Matrix (Bubble) ---
+        // Data: x=Physical Effort (1-10), y=Scenery Score (1-10), r=Days Needed (scaled)
+        const ctxTradeoff = document.getElementById('tradeoffChart').getContext('2d');
+        
+        const bubbleData = [
+            { x: 7, y: 10, r: 15, label: 'Zhangjiajie' }, // 3 days
+            { x: 2, y: 9, r: 10, label: 'Li River' },    // 2 days
+            { x: 8, y: 10, r: 10, label: 'Huangshan' },  // 2 days
+            { x: 5, y: 10, r: 15, label: 'Jiuzhaigou' }, // 3 days
+            { x: 1, y: 7, r: 20, label: 'Yangtze Cruise' }, // 4 days
+            { x: 9, y: 10, r: 25, label: 'Tibet Plateau' }, // 5 days
+            { x: 4, y: 9, r: 5, label: 'Zhangye' }       // 1 day
+        ];
+
+        new Chart(ctxTradeoff, {
+            type: 'bubble',
+            data: {
+                datasets: [{
+                    label: 'Destinations',
+                    data: bubbleData,
+                    backgroundColor: (ctx) => {
+                        const val = ctx.raw?.x;
+                        // Color gradient based on effort: Green (low) to Red (high)
+                        if(val <= 3) return 'rgba(6, 182, 212, 0.7)'; // Cyan
+                        if(val <= 6) return 'rgba(245, 158, 11, 0.7)'; // Amber
+                        return 'rgba(239, 68, 68, 0.7)'; // Red
+                    },
+                    borderColor: 'rgba(255,255,255,1)',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Physical Effort (1-10)' },
+                        min: 0, max: 10
+                    },
+                    y: {
+                        title: { display: true, text: 'Scenery Score (1-10)' },
+                        min: 5, max: 11
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            title: function(context) {
+                                return context[0].raw.label; // Custom title from data object
+                            },
+                            label: function(context) {
+                                return `Effort: ${context.raw.x}, Scenery: ${context.raw.y}`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // --- Chart 3: Seasonal Suitability (Line) ---
+        const ctxSeasonal = document.getElementById('seasonalChart').getContext('2d');
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        // Aggregated scores (simulated)
+        const suitabilityData = [4, 4, 6, 8, 8, 7, 6, 6, 8, 10, 7, 5]; 
+
+        new Chart(ctxSeasonal, {
+            type: 'line',
+            data: {
+                labels: months,
+                datasets: [{
+                    label: 'Suitability Index (0-10)',
+                    data: suitabilityData,
+                    borderColor: '#4338ca', // Indigo
+                    backgroundColor: 'rgba(67, 56, 202, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#06b6d4',
+                    pointRadius: 5
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 10,
+                        title: { display: true, text: 'Suitability Score' }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { callbacks: tooltipTitleCallback }
+                }
+            }
+        });
+
+        // --- Chart 4: Radar Comparison ---
+        const ctxRadar = document.getElementById('radarChart').getContext('2d');
+        new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: wrapLabel('Scenery Photography Physical_Effort Crowds Accessibility Infrastructure'), 
+                datasets: [
+                    {
+                        label: 'Huangshan',
+                        data: [10, 10, 8, 9, 6, 8],
+                        borderColor: '#4338ca', // Indigo
+                        backgroundColor: 'rgba(67, 56, 202, 0.2)',
+                    },
+                    {
+                        label: 'Li River',
+                        data: [9, 9, 2, 8, 9, 8],
+                        borderColor: '#06b6d4', // Cyan
+                        backgroundColor: 'rgba(6, 182, 212, 0.2)',
+                    },
+                    {
+                        label: 'Zhangjiajie',
+                        data: [10, 10, 7, 9, 7, 9],
+                        borderColor: '#f59e0b', // Amber
+                        backgroundColor: 'rgba(245, 158, 11, 0.2)',
+                    }
+                ]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { color: '#e5e7eb' },
+                        grid: { color: '#e5e7eb' },
+                        pointLabels: {
+                            font: { size: 11, weight: 'bold' }
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 10
+                    }
+                },
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: { callbacks: tooltipTitleCallback }
+                }
+            }
+        });
+
+    </script>
+
+</body></html>

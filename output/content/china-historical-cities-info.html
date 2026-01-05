@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Dynasties &amp; Data: China Historical Cities Infographic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #F3F4F6; /* Gray-100 */
+        }
+        
+        /* Chart Container Styling - Mandatory Requirements */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Max width constraint */
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px; /* Base height */
+            max-height: 400px;
+        }
+
+        /* Responsive adjustments for chart height */
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+
+        /* Custom Scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555; 
+        }
+
+        /* Palette Classes based on "Vibrant/Brilliant Blues" */
+        .text-vibrant-primary { color: #2563EB; } /* Royal Blue */
+        .bg-vibrant-primary { background-color: #2563EB; }
+        .text-vibrant-secondary { color: #06B6D4; } /* Cyan */
+        .bg-vibrant-secondary { background-color: #06B6D4; }
+        .text-vibrant-accent { color: #F59E0B; } /* Amber */
+        .bg-vibrant-accent { background-color: #F59E0B; }
+        .text-vibrant-dark { color: #1E3A8A; } /* Dark Blue */
+        
+        .card-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+    </style>
+    <!-- Chosen Palette: Brilliant Blues & Cyan (Vibrant) -->
+    <!-- Application Structure Plan:
+         1. Header: Engaging title and summary hook.
+         2. Key Metrics (Inform): Big number cards showing total years of history, UNESCO sites, and annual visitors.
+         3. Dynastic Endurance (Compare): Bar chart comparing years as capital city.
+         4. The Tourist Triad (Relationships): Scatter plot correlating Budget vs. Cultural Impact score.
+         5. Seasonal Pulse (Change): Line chart showing temperature and rainfall trends to advise travel timing.
+         6. City Personality Profile (Compare/Radar): Radar chart comparing qualitative attributes (Food, History, Nature, Modernity).
+         7. The Golden Route (Organize): A CSS-based flow diagram suggesting a travel itinerary.
+         This narrative moves from high-level stats -> historical context -> practical planning (budget/weather) -> qualitative feel -> itinerary execution.
+    -->
+    <!-- Visualization & Content Choices:
+         1. Big Number Cards: Goal: Inform. Best for immediate impact of key aggregate stats.
+         2. Bar Chart: Goal: Compare. Selected to clearly rank cities by "Years as Capital". Chart.js.
+         3. Scatter Plot: Goal: Relationships. Best to show the trade-off between Cost and Experience. Chart.js.
+         4. Line/Bar Combo: Goal: Change. Standard for Weather data (Temp vs Rain). Chart.js.
+         5. Radar Chart: Goal: Compare. Perfect for multivariate "personality" profiles of cities. Chart.js.
+         6. CSS Flowchart: Goal: Organize. Shows a step-by-step process. structured HTML/CSS (No SVG/Mermaid).
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="text-gray-800">
+
+    <!-- Header Section -->
+    <header class="bg-gradient-to-r from-blue-700 to-cyan-500 text-white pt-20 pb-24 px-4 shadow-lg">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-4xl md:text-6xl font-black mb-4 tracking-tight uppercase">China Dynasties &amp; Data</h1>
+            <p class="text-xl md:text-2xl font-light text-blue-100 max-w-3xl mx-auto">
+                A visual journey through China's most legendary historical capitals. 
+                Decoding 5,000 years of history through modern analytics.
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 pb-20 space-y-16">
+
+        <!-- Section 1: KPI Cards (Inform) -->
+        <section>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- KPI 1 -->
+                <div class="bg-white rounded-xl card-shadow p-8 text-center transform transition hover:scale-105 duration-300">
+                    <div class="text-5xl font-black text-vibrant-primary mb-2">3,000+</div>
+                    <div class="text-sm uppercase tracking-wide font-bold text-gray-500">Years of Urban History</div>
+                    <p class="text-gray-600 mt-4 text-sm">Combined active history of the major capitals.</p>
+                </div>
+                <!-- KPI 2 -->
+                <div class="bg-white rounded-xl card-shadow p-8 text-center transform transition hover:scale-105 duration-300">
+                    <div class="text-5xl font-black text-vibrant-secondary mb-2">56</div>
+                    <div class="text-sm uppercase tracking-wide font-bold text-gray-500">UNESCO World Heritage Sites</div>
+                    <p class="text-gray-600 mt-4 text-sm">China ranks #2 globally for total heritage sites.</p>
+                </div>
+                <!-- KPI 3 -->
+                <div class="bg-white rounded-xl card-shadow p-8 text-center transform transition hover:scale-105 duration-300">
+                    <div class="text-5xl font-black text-vibrant-accent mb-2">144h</div>
+                    <div class="text-sm uppercase tracking-wide font-bold text-gray-500">Visa-Free Transit</div>
+                    <p class="text-gray-600 mt-4 text-sm">Policy allowing easy access for short-term exploration.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Historical Dominance (Compare) -->
+        <section class="bg-white rounded-2xl card-shadow overflow-hidden">
+            <div class="p-8 border-b border-gray-100">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">The Seat of Power</h2>
+                <p class="text-gray-600 max-w-3xl">
+                    Not all historical cities are created equal. While Beijing is the face of modern China, 
+                    <span class="font-bold text-vibrant-primary">Xi'an (Chang'an)</span> held the title of Capital for the longest duration, 
+                    spanning the powerful Han and Tang dynasties. This chart compares the "Time in Power" for the Four Great Ancient Capitals.
+                </p>
+            </div>
+            <div class="p-8 bg-gray-50">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+                    <div class="lg:col-span-2">
+                        <div class="chart-container">
+                            <canvas id="historyBarChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500">
+                        <h3 class="text-lg font-bold text-blue-900 mb-2">Did you know?</h3>
+                        <p class="text-blue-800 text-sm mb-4">
+                            Luoyang is often overlooked but served as the primary or secondary capital for 13 different dynasties, making it the "City of Peonies and Emperors."
+                        </p>
+                        <div class="text-4xl font-black text-blue-300 opacity-50 text-right">#1</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Value Matrix (Relationships) -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-white rounded-2xl card-shadow p-8 col-span-1 md:col-span-2">
+                <div class="mb-6">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Cost vs. Experience Matrix</h2>
+                    <p class="text-gray-600">
+                        Balancing your budget against the "Iconic Status" of a destination is key to planning. 
+                        Upper-right quadrant cities (Beijing, Shanghai) offer world-famous sights but at higher costs and crowd levels. 
+                        Lower-right cities (Xi'an) offer high historical value at a better price point.
+                    </p>
+                </div>
+                <div class="chart-container" style="max-width: 800px;">
+                    <canvas id="scatterChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: City Personality Profiles (Compare) -->
+        <section class="bg-white rounded-2xl card-shadow overflow-hidden">
+            <div class="p-8 border-b border-gray-100">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">City Personality Profiles</h2>
+                <p class="text-gray-600">
+                    Every city has a unique flavor. We analyzed five key destinations across four dimensions: 
+                    <span class="font-bold">Ancient History</span>, <span class="font-bold">Modernity</span>, 
+                    <span class="font-bold">Nature</span>, and <span class="font-bold">Cuisine</span>. 
+                    Use this radar to find the city that matches your travel style.
+                </p>
+            </div>
+            <div class="p-8 bg-white grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="flex flex-col justify-center space-y-6">
+                    <!-- Custom Legend/Explanation -->
+                    <div class="flex items-center p-4 bg-gray-50 rounded-lg border-l-4 border-red-500">
+                        <div class="mr-4 text-2xl">🏛️</div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">The Traditionalist</h4>
+                            <p class="text-xs text-gray-500">Select <span class="font-bold text-red-600">Xi'an</span> for maximum history and raw ancient vibes.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center p-4 bg-gray-50 rounded-lg border-l-4 border-blue-500">
+                        <div class="mr-4 text-2xl">🏙️</div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">The Modern Powerhouse</h4>
+                            <p class="text-xs text-gray-500">Select <span class="font-bold text-blue-600">Shanghai</span> for futuristic skylines and luxury.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center p-4 bg-gray-50 rounded-lg border-l-4 border-green-500">
+                        <div class="mr-4 text-2xl">🌿</div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">The Nature Lover</h4>
+                            <p class="text-xs text-gray-500">Select <span class="font-bold text-green-600">Guilin/Hangzhou</span> for water, mountains, and tranquility.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="radarChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Climate & Timing (Change) -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="bg-white rounded-2xl card-shadow p-8 lg:col-span-2">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Climate Watch: Beijing</h2>
+                <p class="text-gray-600 text-sm mb-6">
+                    Weather patterns vary drastically in China. This chart shows Beijing's distinct seasons. 
+                    Note the <span class="font-bold text-vibrant-accent">Golden Weeks</span> (May/Oct) align with mild temps but bring crowds.
+                </p>
+                <div class="chart-container">
+                    <canvas id="climateChart"></canvas>
+                </div>
+            </div>
+            <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl card-shadow p-8 text-white flex flex-col justify-center">
+                <h3 class="text-xl font-bold mb-6 border-b border-gray-700 pb-2">When to Go?</h3>
+                <div class="space-y-6">
+                    <div class="flex items-start">
+                        <div class="text-vibrant-secondary font-bold text-lg mr-3">APR-MAY</div>
+                        <div>
+                            <h4 class="font-bold">Spring Blossoms</h4>
+                            <p class="text-xs text-gray-400 mt-1">Ideal for Beijing &amp; Xi'an. Mild temps, blooming flowers.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="text-vibrant-accent font-bold text-lg mr-3">SEP-OCT</div>
+                        <div>
+                            <h4 class="font-bold">Autumn Gold</h4>
+                            <p class="text-xs text-gray-400 mt-1">The absolute best time. Cool, dry, clear skies.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="text-red-400 font-bold text-lg mr-3">NOV-MAR</div>
+                        <div>
+                            <h4 class="font-bold">Winter Quiet</h4>
+                            <p class="text-xs text-gray-400 mt-1">Lowest prices, heavy coats required. Pollution risk in north.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Suggested Itinerary (Organize) -->
+        <section class="bg-white rounded-2xl card-shadow p-8">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-gray-800">The Golden Triangle Route</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto mt-2">
+                    The classic itinerary for first-time visitors, maximizing historical intake within 8-10 days.
+                </p>
+            </div>
+
+            <!-- CSS Flowchart (No SVG/Mermaid) -->
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 relative">
+                <!-- Connecting Line (Desktop) -->
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-gray-200 -z-10 transform -translate-y-1/2"></div>
+
+                <!-- Node 1 -->
+                <div class="flex flex-col items-center bg-white p-4 z-10 w-full md:w-1/4">
+                    <div class="w-16 h-16 rounded-full bg-vibrant-primary text-white flex items-center justify-center text-2xl font-black shadow-lg mb-4 ring-4 ring-white">1</div>
+                    <h3 class="font-bold text-lg">Beijing</h3>
+                    <p class="text-xs text-center text-gray-500 uppercase tracking-wider mb-2">3-4 Days</p>
+                    <div class="bg-blue-50 text-blue-800 text-xs p-2 rounded text-center w-full">
+                        Great Wall • Forbidden City
+                    </div>
+                </div>
+
+                <!-- Arrow -->
+                <div class="md:hidden text-gray-300 text-2xl">▼</div>
+
+                <!-- Node 2 -->
+                <div class="flex flex-col items-center bg-white p-4 z-10 w-full md:w-1/4">
+                    <div class="w-16 h-16 rounded-full bg-vibrant-secondary text-white flex items-center justify-center text-2xl font-black shadow-lg mb-4 ring-4 ring-white">2</div>
+                    <h3 class="font-bold text-lg">Xi'an</h3>
+                    <p class="text-xs text-center text-gray-500 uppercase tracking-wider mb-2">2-3 Days</p>
+                    <div class="bg-cyan-50 text-cyan-800 text-xs p-2 rounded text-center w-full">
+                        Terracotta Army • City Wall
+                    </div>
+                </div>
+
+                <!-- Arrow -->
+                <div class="md:hidden text-gray-300 text-2xl">▼</div>
+
+                <!-- Node 3 -->
+                <div class="flex flex-col items-center bg-white p-4 z-10 w-full md:w-1/4">
+                    <div class="w-16 h-16 rounded-full bg-vibrant-accent text-white flex items-center justify-center text-2xl font-black shadow-lg mb-4 ring-4 ring-white">3</div>
+                    <h3 class="font-bold text-lg">Shanghai</h3>
+                    <p class="text-xs text-center text-gray-500 uppercase tracking-wider mb-2">2 Days</p>
+                    <div class="bg-yellow-50 text-yellow-800 text-xs p-2 rounded text-center w-full">
+                        The Bund • Yu Garden
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-gray-300">
+<div class="container mx-auto px-6 py-12 lg:px-8">
+<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+<div>
+<h5 class="text-lg font-semibold text-white mb-4">Home</h5>
+<ul class="space-y-2">
+<li><a href="https://www.chinacitytrip.com/Anhui/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Anhui</a></li>
+<li><a href="https://www.chinacitytrip.com/Fujian/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl03_title">Fujian</a></li>
+<li><a href="https://www.chinacitytrip.com/Gansu/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl04_title">Gansu</a></li>
+<li><a href="https://www.chinacitytrip.com/Guangdong/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl05_title">Guangdong</a></li>
+<li><a href="https://www.chinacitytrip.com/china-cities-list.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl05_title">China Cities List</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-lg font-semibold text-white mb-4">Regions</h5>
+<ul class="space-y-2">
+<li><a href="https://www.chinacitytrip.com/Qinghai/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl20_title">Qinghai</a></li>
+<li><a href="https://www.chinacitytrip.com/Shaanxi/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl21_title">Shaanxi</a></li>
+<li><a href="https://www.chinacitytrip.com/Shandong/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl22_title">Shandong</a></li>
+<li><a href="https://www.chinacitytrip.com/Shanxi/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl23_title">Shanxi</a></li>
+<li><a href="https://www.chinacitytrip.com/Sichuan/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl24_title">Sichuan</a></li>
+<li><a href="https://www.chinacitytrip.com/Guizhou/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl07_title">Guizhou</a></li>
+<li><a href="https://www.chinacitytrip.com/Hainan/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl08_title">Hainan</a></li>
+<li><a href="https://www.chinacitytrip.com/Hebei/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl09_title">Hebei</a></li>
+<li><a href="https://www.chinacitytrip.com/Heilongjiang/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl10_title">Heilongjiang</a></li>
+<li><a href="https://www.chinacitytrip.com/Henan/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl11_title">Henan</a></li>
+<li><a href="https://www.chinacitytrip.com/Hubei/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl12_title">Hubei</a></li>
+<li><a href="https://www.chinacitytrip.com/Hunan/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl13_title">Hunan</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-lg font-semibold text-white mb-4">Best of China</h5>
+<ul class="space-y-2">
+<li><a href="https://www.chinacitytrip.com/chia-cultural-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Chia-cultural-info</a></li>
+<li><a href="https://www.chinacitytrip.com/china-cultural-infographic.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">China-cultural-infographic</a></li>
+<li><a href="https://www.chinacitytrip.com/china-cultural-tour.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl03_title">China-cultural-tour</a></li>
+<li><a href="https://www.chinacitytrip.com/china-historical-cities-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl04_title">China-historical-cities-info</a></li>
+<li><a href="https://www.chinacitytrip.com/china-historical-cities.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl05_title">China-historical-cities</a></li>
+<li><a href="https://www.chinacitytrip.com/china-natural-wonders-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl06_title">China-natural-wonders-info</a></li>
+<li><a href="https://www.chinacitytrip.com/china-natural-wonders.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl07_title">China-natural-wonders</a></li>
+<li><a href="https://www.chinacitytrip.com/china-unesco-sites.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl08_title">China-unesco-sites</a></li>
+<li><a href="https://www.chinacitytrip.com/china-unique-guide-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl09_title">China-unique-guide-info</a></li>
+<li><a href="https://www.chinacitytrip.com/china-unique-travel-experience.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl10_title">China-unique-travel-experience</a></li>
+<li><a href="https://www.chinacitytrip.com/great-wall-of-china-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl11_title">Great-wall-of-china-info</a></li>
+<li><a href="https://www.chinacitytrip.com/great-wall-of-china.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl12_title">Great-wall-of-china</a></li>
+<li><a href="https://www.chinacitytrip.com/sitemap.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl13_title">Sitemap</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-lg font-semibold text-white mb-4">Contact Us</h5>
+<div class="space-y-2">
+<p>WA<br/> USA</p>
+<p>
+<a class="hover:text-white hover:underline transition-colors duration-200" href="mailto:contact@dataknobs.com">contact@chinacitytrip.com</a>
+</p>
+<p>
+<!-- <a href="tel:+14253411222" class="hover:text-white hover:underline transition-colors duration-200">+1 (425) </a> -->
+</p>
+</div>
+</div>
+</div>
+<div class="mt-12 border-t border-gray-700 pt-8 flex flex-col items-center justify-between sm:flex-row">
+<p class="text-sm text-gray-400">© 2026 Kreatewebsites. All rights reserved.</p>
+<div class="flex space-x-4 mt-4 sm:mt-0">
+<a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.facebook.com/kreatewebsites/">
+<span class="sr-only">Facebook</span>
+<svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24">
+<path clip-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.772-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" fill-rule="evenodd"></path>
+</svg>
+</a>
+<a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.twitter.com/dataknobs/">
+<span class="sr-only">Twitter</span>
+<svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24">
+<path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+</svg>
+</a>
+<a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.linkedin.com/company/kreatewebsites/">
+<span class="sr-only">LinkedIn</span>
+<svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24">
+<path clip-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.783-1.75-1.75s.784-1.75 1.75-1.75 1.75.783 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill-rule="evenodd"></path>
+</svg>
+</a>
+</div>
+<div class="flex gap-4 mt-4 sm:mt-0">
+<a class="text-stone-400 hover:text-white" href="https://www.chinacitytrip.com/privacypolicy,html">Privacy Policy</a> <!-- 13 -->
+<a class="text-stone-400 hover:text-white" href="https://www.chinacitytrip.com/sitemap.html">Sitemap</a> <!-- 14 -->
+</div>
+</div>
+</div>
+</footer>
+
+    </main>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- 1. Label Wrapping Logic (Mandatory) ---
+        function wrapLabel(str, maxLen = 16) {
+            if (str.length <= maxLen) return str;
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if (currentLine.length + 1 + words[i].length <= maxLen) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        // --- 2. Tooltip Configuration (Mandatory) ---
+        const commonTooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        // --- 3. Chart Initialization ---
+        document.addEventListener('DOMContentLoaded', function() {
+            Chart.defaults.font.family = "'Roboto', sans-serif";
+            Chart.defaults.color = '#4B5563';
+
+            // --- Chart 1: Historical Endurance (Bar) ---
+            const ctxHistory = document.getElementById('historyBarChart').getContext('2d');
+            const historyLabels = ["Xi'an (Chang'an)", "Luoyang", "Beijing", "Nanjing", "Kaifeng", "Hangzhou"];
+            // Process labels
+            const wrappedHistoryLabels = historyLabels.map(l => wrapLabel(l));
+
+            new Chart(ctxHistory, {
+                type: 'bar',
+                data: {
+                    labels: wrappedHistoryLabels,
+                    datasets: [{
+                        label: 'Years as Capital',
+                        data: [1200, 885, 700, 450, 168, 210],
+                        backgroundColor: [
+                            'rgba(6, 182, 212, 0.8)', // Cyan-500
+                            'rgba(6, 182, 212, 0.6)',
+                            'rgba(37, 99, 235, 0.8)', // Blue-600 (Beijing highlight)
+                            'rgba(6, 182, 212, 0.6)',
+                            'rgba(6, 182, 212, 0.4)',
+                            'rgba(6, 182, 212, 0.4)'
+                        ],
+                        borderColor: 'transparent',
+                        borderWidth: 0,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y', // Horizontal Bar
+                    plugins: {
+                        tooltip: commonTooltipConfig,
+                        legend: { display: false },
+                        title: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { size: 10 } }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { font: { weight: 'bold' } }
+                        }
+                    }
+                }
+            });
+
+            // --- Chart 2: Cost vs Experience (Scatter) ---
+            const ctxScatter = document.getElementById('scatterChart').getContext('2d');
+            new Chart(ctxScatter, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Cities',
+                        data: [
+                            { x: 120, y: 95, city: 'Beijing' },
+                            { x: 150, y: 88, city: 'Shanghai' },
+                            { x: 80, y: 92, city: "Xi'an" },
+                            { x: 90, y: 85, city: 'Nanjing' },
+                            { x: 110, y: 89, city: 'Hangzhou' },
+                            { x: 70, y: 82, city: 'Luoyang' },
+                            { x: 100, y: 94, city: 'Chengdu' }
+                        ],
+                        backgroundColor: function(context) {
+                            const val = context.raw;
+                            // Highlight "Sweet Spot" (Low Cost, High Rating)
+                            if (val && val.x < 100 && val.y > 90) return '#F59E0B'; // Amber
+                            return '#2563EB'; // Blue
+                        },
+                        pointRadius: 8,
+                        pointHoverRadius: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.raw.city}: $${context.raw.x}/day, Rating: ${context.raw.y}/100`;
+                                }
+                            }
+                        },
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            title: { display: true, text: 'Daily Cost (USD Est.)' },
+                            grid: { color: '#f3f4f6' }
+                        },
+                        y: {
+                            title: { display: true, text: 'Visitor Rating / 100' },
+                            min: 70,
+                            max: 100,
+                            grid: { color: '#f3f4f6' }
+                        }
+                    }
+                }
+            });
+
+            // --- Chart 3: Personality Radar (Radar) ---
+            const ctxRadar = document.getElementById('radarChart').getContext('2d');
+            new Chart(ctxRadar, {
+                type: 'radar',
+                data: {
+                    labels: ['Ancient History', 'Modernity/Tech', 'Nature/Scenery', 'Food Scene', 'Affordability'],
+                    datasets: [{
+                        label: 'Beijing',
+                        data: [95, 90, 60, 80, 50],
+                        fill: true,
+                        backgroundColor: 'rgba(37, 99, 235, 0.2)', // Blue
+                        borderColor: 'rgb(37, 99, 235)',
+                        pointBackgroundColor: 'rgb(37, 99, 235)',
+                    }, {
+                        label: "Xi'an",
+                        data: [100, 60, 50, 85, 80],
+                        fill: true,
+                        backgroundColor: 'rgba(245, 158, 11, 0.2)', // Amber
+                        borderColor: 'rgb(245, 158, 11)',
+                        pointBackgroundColor: 'rgb(245, 158, 11)',
+                    }, {
+                        label: "Shanghai",
+                        data: [40, 100, 40, 95, 20],
+                        fill: true,
+                        backgroundColor: 'rgba(6, 182, 212, 0.2)', // Cyan
+                        borderColor: 'rgb(6, 182, 212)',
+                        pointBackgroundColor: 'rgb(6, 182, 212)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: commonTooltipConfig,
+                    },
+                    scales: {
+                        r: {
+                            angleLines: { color: '#e5e7eb' },
+                            grid: { color: '#e5e7eb' },
+                            pointLabels: {
+                                font: { size: 11, weight: 'bold' },
+                                color: '#374151'
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    }
+                }
+            });
+
+            // --- Chart 4: Climate (Line + Bar) ---
+            const ctxClimate = document.getElementById('climateChart').getContext('2d');
+            new Chart(ctxClimate, {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        type: 'line',
+                        label: 'Avg Temp (°C)',
+                        data: [-4, 0, 7, 15, 21, 25, 27, 26, 21, 14, 5, -2],
+                        borderColor: '#F59E0B',
+                        backgroundColor: '#F59E0B',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        yAxisID: 'y',
+                    }, {
+                        type: 'bar',
+                        label: 'Rainfall (mm)',
+                        data: [3, 5, 9, 21, 34, 78, 185, 160, 45, 22, 7, 3],
+                        backgroundColor: 'rgba(6, 182, 212, 0.6)',
+                        yAxisID: 'y1',
+                        borderRadius: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: commonTooltipConfig,
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: { display: true, text: 'Temp (°C)' }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            grid: { drawOnChartArea: false },
+                            title: { display: true, text: 'Rain (mm)' }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+</body></html>

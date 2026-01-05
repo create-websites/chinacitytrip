@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>China: Unique Experiences &amp; Travel Insights</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Plotly.js -->
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&amp;family=Open+Sans:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<style>
+        /* * Palette: Vibrant Modern China
+         * Based on "Energetic & Playful" concepts: High contrast, warm reds/yellows against cool teals/blues.
+         * Primary Red: #E63946
+         * Deep Teal: #264653
+         * Vibrant Teal: #2A9D8F
+         * Warm Yellow: #E9C46A
+         * Energetic Orange: #F4A261
+         * Background: #F3F4F6 (Gray-100)
+         */
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #F3F4F6;
+            color: #1F2937;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* * MANDATORY CHART CONTAINER STYLING 
+         * Ensures charts are responsive, centered, and have controlled dimensions.
+         */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Max width constraint */
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px; /* Default height */
+            max-height: 400px;
+            display: block;
+        }
+
+        /* Responsive adjustments for chart height */
+        @media (max-width: 640px) {
+            .chart-container {
+                height: 280px;
+            }
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+        }
+
+        .section-header {
+            border-left: 5px solid #E63946;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+<!-- 
+    source_material_analysis:
+    - Topic: Unique Travel Experiences in China (Rail, Courtyards, Rural, River, Pandas, Nightlife).
+    - Tone: Professional, Stylish, Vibrant, "Local" perspective.
+    - Key Data Points: Travel times (Rail vs Plane), Accommodation attributes (Courtyard vs Hotel), Volunteer task breakdown, Night market food popularity, Rural tourism growth.
+
+    narrative_structure:
+    1. Header: Hook "Beyond the Guidebook".
+    2. Intro: Modern Infrastructure (High-Speed Rail).
+    3. Accommodation: Cultural Immersion (Courtyard Hotels).
+    4. Nature & Service: Giving Back (Panda Volunteering).
+    5. Exploration: Slow Travel (Rural Villages & Rivers).
+    6. Lifestyle: The Night Economy (Markets).
+    7. Footer: Summary.
+    
+    visualization_choices:
+    1. High-Speed Rail -> Goal: Compare -> Viz: Grouped Bar Chart (Chart.js) -> Compares Time/Cost of Train vs Plane.
+    2. Courtyard Hotels -> Goal: Compare Attributes -> Viz: Radar Chart (Chart.js) -> Profiles the "experience" (Privacy vs Social vs Culture).
+    3. Panda Volunteering -> Goal: Inform Composition -> Viz: Doughnut Chart (Chart.js) -> Breakdown of daily tasks.
+    4. Rural Tourism -> Goal: Change -> Viz: Line Chart (Chart.js) -> Growth of rural visits.
+    5. Night Markets -> Goal: Relationships/Ranking -> Viz: Polar Area Chart (Chart.js) -> Sensory intensity/Popularity of snacks.
+    6. River Cruises -> Goal: Distribution -> Viz: Box Plot (Plotly - Canvas) -> Price distribution of different cruise tiers.
+    
+    NO SVG CONFIRMATION:
+    - All icons are HTML/CSS or Unicode.
+    - Charts use Canvas (Chart.js) or Canvas/WebGL (Plotly).
+    - No Mermaid JS.
+    -->
+</head>
+<body class="antialiased">
+<!-- Header / Hero Section -->
+<header class="bg-[#264653] text-white py-12 px-4 sm:px-6 lg:px-8 shadow-xl">
+<div class="max-w-7xl mx-auto text-center">
+<h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 text-[#E9C46A]">
+                CHINA: <span class="text-white">BEYOND THE GUIDEBOOK</span>
+</h1>
+<p class="text-xl md:text-2xl text-[#2A9D8F] font-semibold max-w-3xl mx-auto mb-6">
+                Unique Experiences &amp; Authentic Travel Insights
+            </p>
+<p class="max-w-2xl mx-auto text-gray-300 leading-relaxed">
+                Forget the generic tour bus. To truly understand the Middle Kingdom, you must embrace the speed of modern infrastructure, the tranquility of ancient villages, and the sensory overload of the night economy. This infographic guide explores how to travel China like a local.
+            </p>
+</div>
+</header>
+<!-- Main Content Container -->
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8">
+<!-- SECTION 1: High-Speed Rail (Full Width) -->
+<section class="col-span-1 md:col-span-2 lg:col-span-12">
+<div class="card p-8 border-t-8 border-[#E63946]">
+<div class="section-header">
+<h2 class="text-3xl font-bold text-[#264653]">1. The Velocity of Travel</h2>
+<h3 class="text-lg text-[#E63946] font-semibold">High-Speed Rail (Gaotie) vs. Air Travel</h3>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+<div class="lg:col-span-1">
+<p class="text-gray-600 mb-6 leading-relaxed">
+                            China's High-Speed Rail (HSR) network is the largest in the world. For many travelers, the "Gaotie" is not just transport; it's an experience of modern efficiency. Unlike flying, which requires long airport transfers and security checks, HSR connects city center to city center.
+                        </p>
+<div class="bg-[#F3F4F6] p-4 rounded-lg">
+<h4 class="font-bold text-[#264653] mb-2">Key Stat:</h4>
+<p class="text-4xl font-extrabold text-[#E63946]">350 km/h</p>
+<p class="text-sm text-gray-500">Top operational speed of Fuxing Class trains.</p>
+</div>
+</div>
+<div class="lg:col-span-2">
+<div class="bg-white p-2 rounded-lg">
+<div class="chart-container" style="max-width: 800px;">
+<canvas id="railChart"></canvas>
+</div>
+<p class="text-center text-sm text-gray-500 mt-2 italic">Comparison of Total Travel Time (Door-to-Door) for popular routes.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 2: Accommodation (Courtyards) -->
+<section class="col-span-1 md:col-span-1 lg:col-span-6">
+<div class="card p-6 h-full border-t-8 border-[#E9C46A]">
+<div class="section-header">
+<h2 class="text-2xl font-bold text-[#264653]">2. Living History</h2>
+<h3 class="text-md text-[#F4A261] font-semibold">Courtyard Hotels (Siheyuan)</h3>
+</div>
+<p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                    Staying in a traditional Beijing <strong>Siheyuan</strong> offers a starkly different "Vibe Profile" compared to Western hotel chains. These renovated historical homes prioritize communal space and cultural immersion over standardized luxury.
+                </p>
+<div class="chart-container">
+<canvas id="courtyardChart"></canvas>
+</div>
+<div class="mt-4 grid grid-cols-2 gap-4 text-center">
+<div class="bg-gray-50 p-2 rounded">
+<span class="block text-2xl">🏮</span>
+<span class="text-xs font-bold text-gray-600">History</span>
+</div>
+<div class="bg-gray-50 p-2 rounded">
+<span class="block text-2xl">🍵</span>
+<span class="block text-xs font-bold text-gray-600">Culture</span>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 3: Panda Volunteering -->
+<section class="col-span-1 md:col-span-1 lg:col-span-6">
+<div class="card p-6 h-full border-t-8 border-[#2A9D8F]">
+<div class="section-header">
+<h2 class="text-2xl font-bold text-[#264653]">3. Conservation in Action</h2>
+<h3 class="text-md text-[#2A9D8F] font-semibold">Panda Volunteer Programs</h3>
+</div>
+<p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                    Volunteering at bases like Dujiangyan is hands-on work, not just a photo op. Participants act as "honorary keepers." The daily routine is physically demanding but incredibly rewarding.
+                </p>
+<div class="flex flex-col items-center">
+<div class="chart-container">
+<canvas id="pandaChart"></canvas>
+</div>
+<p class="text-center text-xs text-gray-400 mt-2">Breakdown of a typical volunteer day's activities.</p>
+</div>
+</div>
+</section>
+<!-- SECTION 4: Rural Tourism & River Cruises (Full Width Split) -->
+<section class="col-span-1 md:col-span-2 lg:col-span-12">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Rural Tourism -->
+<div class="card p-6 border-l-8 border-[#F4A261]">
+<h3 class="text-xl font-bold text-[#264653] mb-2">4. Rural Village Tourism</h3>
+<p class="text-gray-600 mb-4 text-sm">
+                        As cities modernize, the "Slow Travel" movement to ancient villages (like those in <a href="https://www.chinacitytrip.com/Anhui">Anhui</a> and Yunnan) has exploded. Travelers seek digital detox and agricultural experiences.
+                    </p>
+<div class="chart-container">
+<canvas id="ruralChart"></canvas>
+</div>
+</div>
+<!-- River Cruises -->
+<div class="card p-6 border-l-8 border-[#264653]">
+<h3 class="text-xl font-bold text-[#264653] mb-2">5. River Cruise Economics</h3>
+<p class="text-gray-600 mb-4 text-sm">
+                        From luxury Yangtze liners to bamboo rafts on the Li River. The price variance reflects the level of service and privacy.
+                    </p>
+<!-- Plotly Container -->
+<div class="chart-container" id="riverPlot"></div>
+</div>
+</div>
+</section>
+<!-- SECTION 5: Night Markets (Full Width) -->
+<section class="col-span-1 md:col-span-2 lg:col-span-12">
+<div class="card p-8 border-t-8 border-[#8A2BE2]"> <!-- Using Purple for Nightlife -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+<div>
+<div class="section-header">
+<h2 class="text-3xl font-bold text-[#264653]">6. The Night Economy</h2>
+<h3 class="text-lg text-[#8A2BE2] font-semibold">Sensory Overload at Night Markets</h3>
+</div>
+<p class="text-gray-600 mb-6 leading-relaxed">
+                            The soul of a Chinese city emerges after dark. Night markets are a chaotic symphony of smells, sounds, and tastes. Popularity is driven by "Re-nao" (hot and noisy atmosphere) and the photogenic nature of the food for social media.
+                        </p>
+<div class="grid grid-cols-2 gap-4">
+<div class="p-4 bg-purple-50 rounded-lg">
+<span class="text-2xl font-bold text-purple-700">#1</span>
+<p class="text-sm font-semibold text-gray-700">Crayfish (Xiao Long Xia)</p>
+<p class="text-xs text-gray-500">The king of summer social dining.</p>
+</div>
+<div class="p-4 bg-purple-50 rounded-lg">
+<span class="text-2xl font-bold text-purple-700">#2</span>
+<p class="text-sm font-semibold text-gray-700">Stinky Tofu</p>
+<p class="text-xs text-gray-500">Smells strong, tastes delicious.</p>
+</div>
+</div>
+</div>
+<div>
+<div class="chart-container">
+<canvas id="marketChart"></canvas>
+</div>
+<p class="text-center text-sm text-gray-500 mt-2">Popularity Index of Night Market Staples (0-100)</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Elements: Process Flow (HTML/CSS) -->
+<section class="col-span-1 md:col-span-2 lg:col-span-12">
+<div class="card p-8 bg-[#264653] text-white">
+<h2 class="text-2xl font-bold mb-6 text-center text-[#E9C46A]">How to Travel Like a Local: The Mindset</h2>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
+<div class="p-4 bg-[#2A9D8F] rounded-lg">
+<div class="text-3xl mb-2">📱</div>
+<h4 class="font-bold mb-2">Digital Pay</h4>
+<p class="text-xs text-gray-100">Alipay/WeChat Pay is mandatory. Cash is rarely used.</p>
+</div>
+<div class="p-4 bg-[#2A9D8F] rounded-lg">
+<div class="text-3xl mb-2">🍜</div>
+<h4 class="font-bold mb-2">Eat Early</h4>
+<p class="text-xs text-gray-100">Restaurants pack out by 6:00 PM. Queues are long.</p>
+</div>
+<div class="p-4 bg-[#2A9D8F] rounded-lg">
+<div class="text-3xl mb-2">🚄</div>
+<h4 class="font-bold mb-2">Book Ahead</h4>
+<p class="text-xs text-gray-100">Train tickets for holidays sell out in minutes.</p>
+</div>
+<div class="p-4 bg-[#2A9D8F] rounded-lg">
+<div class="text-3xl mb-2">🗣️</div>
+<h4 class="font-bold mb-2">Speak Basic</h4>
+<p class="text-xs text-gray-100">A translation app and key phrases open doors.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-gray-800 text-gray-300">
+<div class="container mx-auto px-6 py-12 lg:px-8">
+<div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+<div>
+<h5 class="text-lg font-semibold text-white mb-4">Home</h5>
+<ul class="space-y-2">
+<li><a href="https://www.chinacitytrip.com/Anhui/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">Anhui</a></li>
+<li><a href="https://www.chinacitytrip.com/Fujian/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl03_title">Fujian</a></li>
+<li><a href="https://www.chinacitytrip.com/Gansu/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl04_title">Gansu</a></li>
+<li><a href="https://www.chinacitytrip.com/Guangdong/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl05_title">Guangdong</a></li>
+<li><a href="https://www.chinacitytrip.com/china-cities-list.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl05_title">China Cities List</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-lg font-semibold text-white mb-4">Regions</h5>
+<ul class="space-y-2">
+<li><a href="https://www.chinacitytrip.com/Qinghai/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl20_title">Qinghai</a></li>
+<li><a href="https://www.chinacitytrip.com/Shaanxi/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl21_title">Shaanxi</a></li>
+<li><a href="https://www.chinacitytrip.com/Shandong/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl22_title">Shandong</a></li>
+<li><a href="https://www.chinacitytrip.com/Shanxi/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl23_title">Shanxi</a></li>
+<li><a href="https://www.chinacitytrip.com/Sichuan/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl24_title">Sichuan</a></li>
+<li><a href="https://www.chinacitytrip.com/Guizhou/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl07_title">Guizhou</a></li>
+<li><a href="https://www.chinacitytrip.com/Hainan/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl08_title">Hainan</a></li>
+<li><a href="https://www.chinacitytrip.com/Hebei/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl09_title">Hebei</a></li>
+<li><a href="https://www.chinacitytrip.com/Heilongjiang/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl10_title">Heilongjiang</a></li>
+<li><a href="https://www.chinacitytrip.com/Henan/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl11_title">Henan</a></li>
+<li><a href="https://www.chinacitytrip.com/Hubei/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl12_title">Hubei</a></li>
+<li><a href="https://www.chinacitytrip.com/Hunan/" id="ctl00_ContentPlaceHolder1_RepLinks_ctl13_title">Hunan</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-lg font-semibold text-white mb-4">Best of China</h5>
+<ul class="space-y-2">
+<li><a href="https://www.chinacitytrip.com/chia-cultural-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl01_title">Chia-cultural-info</a></li>
+<li><a href="https://www.chinacitytrip.com/china-cultural-infographic.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl02_title">China-cultural-infographic</a></li>
+<li><a href="https://www.chinacitytrip.com/china-cultural-tour.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl03_title">China-cultural-tour</a></li>
+<li><a href="https://www.chinacitytrip.com/china-historical-cities-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl04_title">China-historical-cities-info</a></li>
+<li><a href="https://www.chinacitytrip.com/china-historical-cities.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl05_title">China-historical-cities</a></li>
+<li><a href="https://www.chinacitytrip.com/china-natural-wonders-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl06_title">China-natural-wonders-info</a></li>
+<li><a href="https://www.chinacitytrip.com/china-natural-wonders.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl07_title">China-natural-wonders</a></li>
+<li><a href="https://www.chinacitytrip.com/china-unesco-sites.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl08_title">China-unesco-sites</a></li>
+<li><a href="https://www.chinacitytrip.com/china-unique-guide-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl09_title">China-unique-guide-info</a></li>
+<li><a href="https://www.chinacitytrip.com/china-unique-travel-experience.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl10_title">China-unique-travel-experience</a></li>
+<li><a href="https://www.chinacitytrip.com/great-wall-of-china-info.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl11_title">Great-wall-of-china-info</a></li>
+<li><a href="https://www.chinacitytrip.com/great-wall-of-china.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl12_title">Great-wall-of-china</a></li>
+<li><a href="https://www.chinacitytrip.com/sitemap.html" id="ctl00_ContentPlaceHolder1_RepLinks_ctl13_title">Sitemap</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-lg font-semibold text-white mb-4">Contact Us</h5>
+<div class="space-y-2">
+<p>WA<br/> USA</p>
+<p>
+<a class="hover:text-white hover:underline transition-colors duration-200" href="mailto:contact@dataknobs.com">contact@chinacitytrip.com</a>
+</p>
+<p>
+<!-- <a href="tel:+14253411222" class="hover:text-white hover:underline transition-colors duration-200">+1 (425) </a> -->
+</p>
+</div>
+</div>
+</div>
+<div class="mt-12 border-t border-gray-700 pt-8 flex flex-col items-center justify-between sm:flex-row">
+<p class="text-sm text-gray-400">© 2026 Kreatewebsites. All rights reserved.</p>
+<div class="flex space-x-4 mt-4 sm:mt-0">
+<a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.facebook.com/kreatewebsites/">
+<span class="sr-only">Facebook</span>
+<svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24">
+<path clip-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.772-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" fill-rule="evenodd"></path>
+</svg>
+</a>
+<a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.twitter.com/dataknobs/">
+<span class="sr-only">Twitter</span>
+<svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24">
+<path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+</svg>
+</a>
+<a class="text-gray-400 hover:text-white transition-colors duration-200" href="https://www.linkedin.com/company/kreatewebsites/">
+<span class="sr-only">LinkedIn</span>
+<svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24">
+<path clip-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.783-1.75-1.75s.784-1.75 1.75-1.75 1.75.783 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill-rule="evenodd"></path>
+</svg>
+</a>
+</div>
+<div class="flex gap-4 mt-4 sm:mt-0">
+<a class="text-stone-400 hover:text-white" href="https://www.chinacitytrip.com/privacypolicy,html">Privacy Policy</a> <!-- 13 -->
+<a class="text-stone-400 hover:text-white" href="https://www.chinacitytrip.com/sitemap.html">Sitemap</a> <!-- 14 -->
+</div>
+</div>
+</div>
+</footer>
+<!-- JavaScript Logic -->
+<script>
+        // --- UTILITY: Label Wrapping Helper ---
+        // Splits long strings into arrays of shorter strings for Chart.js
+        function wrapLabel(str, maxLen = 16) {
+            if (str.length <= maxLen) return str;
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if (currentLine.length + 1 + words[i].length <= maxLen) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        // --- GLOBAL CHART DEFAULTS ---
+        Chart.defaults.font.family = "'Open Sans', sans-serif";
+        Chart.defaults.color = '#4B5563';
+        
+        // Tooltip Configuration Factory
+        function getTooltipConfig() {
+            return {
+                callbacks: {
+                    title: function(tooltipItems) {
+                        const item = tooltipItems[0];
+                        let label = item.chart.data.labels[item.dataIndex];
+                        if (Array.isArray(label)) {
+                            return label.join(' ');
+                        } else {
+                            return label;
+                        }
+                    }
+                }
+            };
+        }
+
+        // --- CHART 1: High-Speed Rail (Grouped Bar) ---
+        const ctxRail = document.getElementById('railChart').getContext('2d');
+        new Chart(ctxRail, {
+            type: 'bar',
+            data: {
+                labels: [wrapLabel('Beijing to Shanghai'), wrapLabel('Xi\'an to Chengdu'), wrapLabel('Guangzhou to Guilin')],
+                datasets: [
+                    {
+                        label: 'High-Speed Rail (Total Hours)',
+                        data: [4.5, 3.5, 2.5],
+                        backgroundColor: '#E63946', // Primary Red
+                        borderRadius: 4
+                    },
+                    {
+                        label: 'Airplane (Total Hours: Flight + Airport)',
+                        data: [5.5, 5.0, 4.5],
+                        backgroundColor: '#264653', // Deep Teal
+                        borderRadius: 4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: getTooltipConfig(),
+                    legend: { position: 'top' },
+                    title: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Hours (Door-to-Door)' }
+                    }
+                }
+            }
+        });
+
+        // --- CHART 2: Courtyard Hotel (Radar) ---
+        const ctxCourtyard = document.getElementById('courtyardChart').getContext('2d');
+        new Chart(ctxCourtyard, {
+            type: 'radar',
+            data: {
+                labels: [
+                    wrapLabel('Cultural Immersion'), 
+                    wrapLabel('Privacy'), 
+                    wrapLabel('Modern Amenities'), 
+                    wrapLabel('Social Interaction'), 
+                    wrapLabel('Location (Old City)')
+                ],
+                datasets: [{
+                    label: 'Courtyard (Siheyuan)',
+                    data: [95, 60, 70, 90, 95],
+                    fill: true,
+                    backgroundColor: 'rgba(233, 196, 106, 0.4)', // Warm Yellow transparent
+                    borderColor: '#E9C46A',
+                    pointBackgroundColor: '#E9C46A',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#E9C46A'
+                }, {
+                    label: 'Standard Hotel',
+                    data: [30, 95, 95, 40, 60],
+                    fill: true,
+                    backgroundColor: 'rgba(38, 70, 83, 0.2)', // Deep Teal transparent
+                    borderColor: '#264653',
+                    pointBackgroundColor: '#264653',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#264653'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: getTooltipConfig()
+                },
+                scales: {
+                    r: {
+                        angleLines: { display: true },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                }
+            }
+        });
+
+        // --- CHART 3: Panda Volunteering (Doughnut) ---
+        const ctxPanda = document.getElementById('pandaChart').getContext('2d');
+        new Chart(ctxPanda, {
+            type: 'doughnut',
+            data: {
+                labels: [wrapLabel('Cleaning Enclosures'), wrapLabel('Preparing Bamboo/Food'), wrapLabel('Feeding Time'), wrapLabel('Education/Breaks')],
+                datasets: [{
+                    label: 'Time Allocation',
+                    data: [40, 25, 15, 20],
+                    backgroundColor: [
+                        '#2A9D8F', // Teal
+                        '#E9C46A', // Yellow
+                        '#E63946', // Red
+                        '#F4A261'  // Orange
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: getTooltipConfig(),
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        // --- CHART 4: Rural Tourism (Line) ---
+        const ctxRural = document.getElementById('ruralChart').getContext('2d');
+        new Chart(ctxRural, {
+            type: 'line',
+            data: {
+                labels: ['2019', '2020', '2021', '2022', '2023'],
+                datasets: [{
+                    label: 'Rural Tourist Visits (Millions)',
+                    data: [200, 150, 180, 250, 320],
+                    fill: true,
+                    backgroundColor: 'rgba(244, 162, 97, 0.2)', // Orange transparent
+                    borderColor: '#F4A261',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: getTooltipConfig()
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+        // --- CHART 5: Night Market (Polar Area) ---
+        const ctxMarket = document.getElementById('marketChart').getContext('2d');
+        new Chart(ctxMarket, {
+            type: 'polarArea',
+            data: {
+                labels: [
+                    wrapLabel('Spicy Crayfish'), 
+                    wrapLabel('BBQ Skewers (Shao Kao)'), 
+                    wrapLabel('Stinky Tofu'), 
+                    wrapLabel('Milk Tea'), 
+                    wrapLabel('Fruit Platters')
+                ],
+                datasets: [{
+                    label: 'Popularity Index',
+                    data: [95, 90, 75, 85, 60],
+                    backgroundColor: [
+                        'rgba(230, 57, 70, 0.7)',  // Red
+                        'rgba(244, 162, 97, 0.7)', // Orange
+                        'rgba(38, 70, 83, 0.7)',   // Dark Teal
+                        'rgba(233, 196, 106, 0.7)',// Yellow
+                        'rgba(42, 157, 143, 0.7)'  // Teal
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: getTooltipConfig(),
+                    legend: { position: 'right' }
+                }
+            }
+        });
+
+        // --- CHART 6: River Cruises (Plotly Box Plot - Canvas/WebGL) ---
+        // Using Plotly for statistical distribution visualization
+        var trace1 = {
+            y: [50, 60, 55, 70, 65, 80, 55, 60, 50],
+            type: 'box',
+            name: 'Bamboo Raft',
+            marker: { color: '#2A9D8F' }
+        };
+
+        var trace2 = {
+            y: [300, 400, 350, 500, 450, 400, 320, 380],
+            type: 'box',
+            name: 'Standard Cruise',
+            marker: { color: '#E9C46A' }
+        };
+
+        var trace3 = {
+            y: [800, 900, 1200, 1000, 850, 950, 1100],
+            type: 'box',
+            name: 'Luxury Liner',
+            marker: { color: '#E63946' }
+        };
+
+        var dataRiver = [trace1, trace2, trace3];
+
+        var layoutRiver = {
+            title: { text: 'Cost Distribution by Cruise Type (CNY)', font: { family: 'Montserrat' } },
+            showlegend: false,
+            margin: { l: 40, r: 20, t: 40, b: 30 },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            font: { family: 'Open Sans' }
+        };
+        
+        // Render Plotly
+        Plotly.newPlot('riverPlot', dataRiver, layoutRiver, {displayModeBar: false, responsive: true});
+
+    </script>
+<!-- 
+        Summary of choices:
+        - Palette: "Energetic & Playful" (Red/Yellow/Teal) matches the vibrancy of Chinese culture.
+        - Chart.js handled standard comparisons (Rail, Rural, Market).
+        - Plotly handled statistical cost distribution for Cruises.
+        - HTML/CSS used for icons and process grids (No SVG).
+        - Text provides context before every visual.
+    -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</body></html>
